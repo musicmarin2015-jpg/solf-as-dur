@@ -169,14 +169,12 @@
   .scale-step.stable:hover { background: #ffcdd2; }
   .scale-step.unstable { border-color: #1565c0; background: #e3f2fd; }
   .scale-step.unstable:hover { background: #bbdefb; }
-  /* Римские цифры ступеней — крупные */
   .scale-step .degree { 
     font-size: 1.4em; 
     font-weight: bold; 
     color: #4a148c;
     margin-bottom: 4px;
   }
-  /* 🔴 СЛОГОВЫЕ НАЗВАНИЯ — УВЕЛИЧЕНЫ */
   .scale-step .note-name { 
     font-size: 1.4em; 
     font-weight: bold; 
@@ -282,7 +280,6 @@
 </div>
 
 <script>
-// === Web Audio API ===
 let audioCtx;
 function getAudioCtx() {
   if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -321,54 +318,42 @@ function playAudioFile(path) {
   });
 }
 
-// 🔴🔴🔴 ВСЕ ПУТИ К ВАШИМ MP3-ФАЙЛАМ 🔴🔴🔴
+// 🔴 ВСЕ ПУТИ К MP3-ФАЙЛАМ (БЕЗ ПАПКИ sounds/)
 const AUDIO_FILES = {
-  // ✅ РАЗДЕЛ 1: ГАММА
-  scaleUp:   'sounds/gamma-up.mp3',
-  scaleDown: 'sounds/gamma-down.mp3',
-  tonic:     'sounds/tonic-As.mp3',
-  
-  // ✅ РАЗДЕЛ 2: УСТОЙЧИВЫЕ СТУПЕНИ
-  stableUp:    'sounds/stable-up.mp3',
-  stableDown:  'sounds/stable-down.mp3',
-  tonicTriad:  'sounds/tonic-triad.mp3',
-  
-  // ✅ РАЗДЕЛ 3: РАЗРЕШЕНИЯ
-  res2to1: 'sounds/res-2-1.mp3',
-  res4to3: 'sounds/res-4-3.mp3',
-  res6to5: 'sounds/res-6-5.mp3',
-  res7to1: 'sounds/res-7-1.mp3',
-  allRes:  'sounds/all-resolutions.mp3',
-  
-  // ✅ РАЗДЕЛ 4: ОПЕВАНИЯ
-  surroundI:   'sounds/surround-I.mp3',
-  surroundIII: 'sounds/surround-III.mp3',
-  surroundV:   'sounds/surround-V.mp3',
-  
-  // ✅ РАЗДЕЛ 5: ВИКТОРИНА
+  scaleUp:   'gamma-up.mp3',
+  scaleDown: 'gamma-down.mp3',
+  tonic:     'tonic-As.mp3',
+  stableUp:    'stable-up.mp3',
+  stableDown:  'stable-down.mp3',
+  tonicTriad:  'tonic-triad.mp3',
+  res2to1: 'res-2-1.mp3',
+  res4to3: 'res-4-3.mp3',
+  res6to5: 'res-6-5.mp3',
+  res7to1: 'res-7-1.mp3',
+  allRes:  'all-resolutions.mp3',
+  surroundI:   'surround-I.mp3',
+  surroundIII: 'surround-III.mp3',
+  surroundV:   'surround-V.mp3',
   quiz: {
-    step_up:    ['sounds/step-up-1.mp3', 'sounds/step-up-2.mp3'],
-    step_down:  ['sounds/step-down-1.mp3', 'sounds/step-down-2.mp3'],
-    triad_up:   ['sounds/triad-up.mp3'],
-    triad_down: ['sounds/triad-down.mp3'],
-    leap_up:    ['sounds/leap-up-1.mp3', 'sounds/leap-up-2.mp3'],
-    leap_down:  ['sounds/leap-down-1.mp3', 'sounds/leap-down-2.mp3'],
-    surround:   ['sounds/surround-quiz-1.mp3', 'sounds/surround-quiz-2.mp3'],
-    T53_up:     ['sounds/T53-up.mp3'],
-    T53_down:   ['sounds/T53-down.mp3'],
-    T6_up:      ['sounds/T6-up.mp3'],
-    T6_down:    ['sounds/T6-down.mp3'],
-    T64_up:     ['sounds/T64-up.mp3'],
-    T64_down:   ['sounds/T64-down.mp3'],
-    D7_up:      ['sounds/D7-up.mp3'],
-    D7_down:    ['sounds/D7-down.mp3'],
-    tritone:    ['sounds/tritone-1.mp3', 'sounds/tritone-2.mp3']
+    step_up:    ['step-up-1.mp3', 'step-up-2.mp3'],
+    step_down:  ['step-down-1.mp3', 'step-down-2.mp3'],
+    triad_up:   ['triad-up.mp3'],
+    triad_down: ['triad-down.mp3'],
+    leap_up:    ['leap-up-1.mp3', 'leap-up-2.mp3'],
+    leap_down:  ['leap-down-1.mp3', 'leap-down-2.mp3'],
+    surround:   ['surround-quiz-1.mp3', 'surround-quiz-2.mp3'],
+    T53_up:     ['T53-up.mp3'],
+    T53_down:   ['T53-down.mp3'],
+    T6_up:      ['T6-up.mp3'],
+    T6_down:    ['T6-down.mp3'],
+    T64_up:     ['T64-up.mp3'],
+    T64_down:   ['T64-down.mp3'],
+    D7_up:      ['D7-up.mp3'],
+    D7_down:    ['D7-down.mp3'],
+    tritone:    ['tritone-1.mp3', 'tritone-2.mp3']
   }
 };
 
-// ============================================
-// 🔴 РАЗДЕЛЫ 1-4: ФУНКЦИИ (ваши MP3)
-// ============================================
 function playScale() { playAudioFile(AUDIO_FILES.scaleUp); }
 function playScaleDescending() { playAudioFile(AUDIO_FILES.scaleDown); }
 function playTonic() { playAudioFile(AUDIO_FILES.tonic); }
@@ -377,31 +362,16 @@ function playStableStepsDown() { playAudioFile(AUDIO_FILES.stableDown); }
 function playTonicTriad() { playAudioFile(AUDIO_FILES.tonicTriad); }
 
 function playResolution(type) {
-  const map = {
-    1: AUDIO_FILES.res2to1,
-    3: AUDIO_FILES.res4to3,
-    5: AUDIO_FILES.res6to5,
-    6: AUDIO_FILES.res7to1
-  };
+  const map = { 1: AUDIO_FILES.res2to1, 3: AUDIO_FILES.res4to3, 5: AUDIO_FILES.res6to5, 6: AUDIO_FILES.res7to1 };
   playAudioFile(map[type]);
 }
 
-function playAllResolutions() {
-  playAudioFile(AUDIO_FILES.allRes);
-}
+function playAllResolutions() { playAudioFile(AUDIO_FILES.allRes); }
 
 function playSurround(degreeIndex) {
-  const map = {
-    0: AUDIO_FILES.surroundI,
-    2: AUDIO_FILES.surroundIII,
-    4: AUDIO_FILES.surroundV
-  };
+  const map = { 0: AUDIO_FILES.surroundI, 2: AUDIO_FILES.surroundIII, 4: AUDIO_FILES.surroundV };
   playAudioFile(map[degreeIndex]);
 }
-
-// ============================================
-// 🔴 РАЗДЕЛ 5: ВИКТОРИНА (ваши MP3)
-// ============================================
 
 function buildScaleVisual() {
   const container = document.getElementById('scaleVisual');
@@ -549,10 +519,10 @@ function nextQuestion() {
 }
 
 function getFinalComment(s) {
-  if (s >= 9) return { text: '🌟 <b>Превосходно!</b> Ты отлично ориентируешься в тональности Ля-бемоль мажор! Чувствуешь характерные движения и аккорды. Так держать!', cls: 'excellent' };
-  if (s >= 7) return { text: '👍 <b>Хороший результат!</b> Ты хорошо различаешь основные типы движений. Советую потренировать различение обращений трезвучий и скачков.', cls: 'good' };
-  if (s >= 5) return { text: '📖 <b>Неплохо, но есть над чем поработать.</b> Обрати внимание на опевание и тритон.', cls: 'ok' };
-  return { text: '💪 <b>Стоит повторить материал.</b> Прослушай гамму и аккорды ещё раз.', cls: 'retry' };
+  if (s >= 9) return { text: '🌟 <b>Превосходно!</b> Ты отлично ориентируешься в тональности Ля-бемоль мажор!', cls: 'excellent' };
+  if (s >= 7) return { text: '👍 <b>Хороший результат!</b> Ты хорошо различаешь основные типы движений.', cls: 'good' };
+  if (s >= 5) return { text: '📖 <b>Неплохо, но есть над чем поработать.</b>', cls: 'ok' };
+  return { text: '💪 <b>Стоит повторить материал.</b>', cls: 'retry' };
 }
 
 function showFinalComment() {
